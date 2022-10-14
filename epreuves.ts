@@ -1,14 +1,14 @@
 abstract class Epreuve {
     protected date : Date;
     protected recordMonde : number;
-    // protected participants : Participants[ ]
 
+
+    abstract afficherClassement() : void;
 
 }
 
 
 abstract class Sauts extends Epreuve {
-
 }
 
 
