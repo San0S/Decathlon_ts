@@ -3,6 +3,7 @@ exports.__esModule = true;
 var decathlon_1 = require("./decathlon");
 var participant_1 = require("./participant");
 var readlineSync = require("readline-sync");
+var e = require("./epreuves");
 var dateDebut = new Date(2022, 9, 17);
 var dateFin = new Date(2022, 9, 18);
 var decathlon = new decathlon_1.Decathlon(dateDebut, dateFin, "Décastar", "Talence");
@@ -26,6 +27,7 @@ function choixEpreuveByDay(jour) {
     }
     for (var i = 0; i < epreuves.length; i++) {
         if (choix == i + 1) {
+            console.log("Gestion du " + epreuves[i].getNom());
             return epreuves[i];
         }
     }
@@ -48,6 +50,7 @@ function choixAthlete() {
     else {
         for (var i = 0; i < athletes.length; i++) {
             if (choix == i + 1) {
+                console.log("Gestion de l'althèle : " + athletes[i].getNom() + " " + athletes[i].getPrenom());
                 return athletes[i];
             }
         }
@@ -62,6 +65,72 @@ function choixJour() {
     }
     return choix;
 }
+function saisieResultat(epreuve, athlete) {
+    var result = Number(readlineSync.question("Veuillez saisir le resultat en " + (epreuve === null || epreuve === void 0 ? void 0 : epreuve.getMesure()) + " : "));
+    if (epreuve instanceof e.CentMetres) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentMetres(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.CentDixMetresHaies) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentDixMetresHaies(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.QuatreCentsMetres) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatQuatreCentsMetres(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.MilleCinqCentsMetres) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatMilleCinqCentsMetres(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.LancerDeDisque) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeDisque(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.LancerDeJavelot) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeJavelot(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.LancerDePoids) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDePoids(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.SautEnLongueur) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnLongueur(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.SautEnHauteur) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnHauteur(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPoints(), "points");
+    }
+    else if (epreuve instanceof e.SautALaPerche) {
+        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautALaPerche(result);
+        // DEBUG
+        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPerformance());
+        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPoints(), "points");
+    }
+    else {
+        console.log("Erreur, épreuve inconnue");
+    }
+}
 var jour;
 // Boucle principale
 do {
@@ -69,35 +138,10 @@ do {
     if (jour != 0) {
         var date = ((jour == 1) ? dateDebut : dateFin);
         var epreuve = choixEpreuveByDay(date);
-        console.log("Gestion du " + (epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom()));
         var athlete = choixAthlete();
-        console.log("Gestion de l'althèle : " + (athlete === null || athlete === void 0 ? void 0 : athlete.getNom()) + " " + (athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom()));
+        saisieResultat(epreuve, athlete);
     }
     else {
         console.log("Sauvegarde...");
     }
-    // answer = Number(readlineSync.question("Quel jour voulez-vous gerer (1 ou 2 ; 0 pour quitter) ? "));
-    // if (answer != 0) {
-    //     console.log("Voici les épreuves de ce jour");
-    //     switch (answer) {
-    //         case 1:
-    //             let epreuvesJ1 = decathlon.getEpreuvesByDay(dateDebut);
-    //             let epreuveJ1 = choixEpreuve(epreuvesJ1);
-    //             console.log("Gestion du " + epreuveJ1?.getNom())
-    //             let athlete = choixAthlete();
-    //             if (athlete == undefined) {
-    //                 break;
-    //             } else {
-    //                 console.log("Vous avez choisi de gérer : " + athlete.getNom().toUpperCase() + " " + athlete.getPrenom());
-    //             }
-    //             break;
-    //         case 2:
-    //             let epreuvesJ2 = decathlon.getEpreuvesByDay(dateFin);
-    //             let epreuveJ2 = choixEpreuve(epreuvesJ2);
-    //             console.log("Gestion du " + epreuveJ2?.getNom())
-    //             break;
-    //     }
-    // } else {
-    //     console.log("Sauvegarde...");
-    // }
 } while (jour != 0);

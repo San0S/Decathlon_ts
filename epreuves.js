@@ -15,189 +15,164 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.Epreuve = void 0;
+exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.Saut = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.Lancer = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.Course = exports.Epreuve = void 0;
 var Epreuve = /** @class */ (function () {
-    function Epreuve(date, recordMonde) {
+    function Epreuve(date) {
         this.date = date;
-        this.recordMonde = recordMonde;
     }
+    Epreuve.prototype.getNom = function () { return this.nom; };
+    Epreuve.prototype.getDate = function () { return this.date; };
+    Epreuve.prototype.getMesure = function () { return this.mesure; };
+    Epreuve.prototype.afficher = function () {
+        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
+    };
     return Epreuve;
 }());
 exports.Epreuve = Epreuve;
-// EPREUVES DE SAUT
-// abstract class Sauts extends Epreuve {
-// }
-var SautEnLongueur = /** @class */ (function (_super) {
-    __extends(SautEnLongueur, _super);
-    function SautEnLongueur(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Saut en longueur";
-        return _this;
-    }
-    SautEnLongueur.prototype.getNom = function () { return this.nom; };
-    SautEnLongueur.prototype.getDate = function () { return this.date; };
-    SautEnLongueur.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    SautEnLongueur.prototype.afficherClassement = function () {
-    };
-    return SautEnLongueur;
-}(Epreuve));
-exports.SautEnLongueur = SautEnLongueur;
-var SautEnHauteur = /** @class */ (function (_super) {
-    __extends(SautEnHauteur, _super);
-    function SautEnHauteur(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Saut en hauteur";
-        return _this;
-    }
-    SautEnHauteur.prototype.getNom = function () { return this.nom; };
-    SautEnHauteur.prototype.getDate = function () { return this.date; };
-    SautEnHauteur.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    SautEnHauteur.prototype.afficherClassement = function () {
-    };
-    return SautEnHauteur;
-}(Epreuve));
-exports.SautEnHauteur = SautEnHauteur;
-var SautALaPerche = /** @class */ (function (_super) {
-    __extends(SautALaPerche, _super);
-    function SautALaPerche(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Saut à la perche";
-        return _this;
-    }
-    SautALaPerche.prototype.getNom = function () { return this.nom; };
-    SautALaPerche.prototype.getDate = function () { return this.date; };
-    SautALaPerche.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    SautALaPerche.prototype.afficherClassement = function () {
-    };
-    return SautALaPerche;
-}(Epreuve));
-exports.SautALaPerche = SautALaPerche;
-// EPREUVES DE LANCER
-// // abstract class Lancers extends Epreuve {
-// // }
-var LancerDeDisque = /** @class */ (function (_super) {
-    __extends(LancerDeDisque, _super);
-    function LancerDeDisque(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Lancer de disque";
-        return _this;
-    }
-    LancerDeDisque.prototype.getNom = function () { return this.nom; };
-    LancerDeDisque.prototype.getDate = function () { return this.date; };
-    LancerDeDisque.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    LancerDeDisque.prototype.afficherClassement = function () {
-    };
-    return LancerDeDisque;
-}(Epreuve));
-exports.LancerDeDisque = LancerDeDisque;
-var LancerDeJavelot = /** @class */ (function (_super) {
-    __extends(LancerDeJavelot, _super);
-    function LancerDeJavelot(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Lancer de javelot";
-        return _this;
-    }
-    LancerDeJavelot.prototype.getNom = function () { return this.nom; };
-    LancerDeJavelot.prototype.getDate = function () { return this.date; };
-    LancerDeJavelot.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    LancerDeJavelot.prototype.afficherClassement = function () {
-    };
-    return LancerDeJavelot;
-}(Epreuve));
-exports.LancerDeJavelot = LancerDeJavelot;
-var LancerDePoids = /** @class */ (function (_super) {
-    __extends(LancerDePoids, _super);
-    function LancerDePoids(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
-        _this.nom = "Lancer de poids";
-        return _this;
-    }
-    LancerDePoids.prototype.getNom = function () { return this.nom; };
-    LancerDePoids.prototype.getDate = function () { return this.date; };
-    LancerDePoids.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    LancerDePoids.prototype.afficherClassement = function () {
-    };
-    return LancerDePoids;
-}(Epreuve));
-exports.LancerDePoids = LancerDePoids;
 // EPREUVE DE COURSE
+var Course = /** @class */ (function (_super) {
+    __extends(Course, _super);
+    function Course(date) {
+        var _this = _super.call(this, date) || this;
+        _this.mesure = "secondes";
+        return _this;
+    }
+    return Course;
+}(Epreuve));
+exports.Course = Course;
+// ---------------------------------------------
 var CentMetres = /** @class */ (function (_super) {
     __extends(CentMetres, _super);
-    function CentMetres(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
+    function CentMetres(date) {
+        var _this = _super.call(this, date) || this;
         _this.nom = "100 mètres";
+        _this.recordMonde = 10.12;
         return _this;
     }
-    CentMetres.prototype.getNom = function () { return this.nom; };
-    CentMetres.prototype.getDate = function () { return this.date; };
-    CentMetres.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    CentMetres.prototype.afficherClassement = function () {
-    };
     return CentMetres;
-}(Epreuve));
+}(Course));
 exports.CentMetres = CentMetres;
 var CentDixMetresHaies = /** @class */ (function (_super) {
     __extends(CentDixMetresHaies, _super);
-    function CentDixMetresHaies(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
+    function CentDixMetresHaies(date) {
+        var _this = _super.call(this, date) || this;
         _this.nom = "110 mètres haies";
+        _this.recordMonde = 13.44;
         return _this;
     }
-    CentDixMetresHaies.prototype.getNom = function () { return this.nom; };
-    CentDixMetresHaies.prototype.getDate = function () { return this.date; };
-    CentDixMetresHaies.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    CentDixMetresHaies.prototype.afficherClassement = function () {
-    };
     return CentDixMetresHaies;
-}(Epreuve));
+}(Course));
 exports.CentDixMetresHaies = CentDixMetresHaies;
 var QuatreCentsMetres = /** @class */ (function (_super) {
     __extends(QuatreCentsMetres, _super);
-    function QuatreCentsMetres(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
+    function QuatreCentsMetres(date) {
+        var _this = _super.call(this, date) || this;
         _this.nom = "400 mètres";
+        _this.recordMonde = 45;
         return _this;
     }
-    QuatreCentsMetres.prototype.getNom = function () { return this.nom; };
-    QuatreCentsMetres.prototype.getDate = function () { return this.date; };
-    QuatreCentsMetres.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    QuatreCentsMetres.prototype.afficherClassement = function () {
-    };
     return QuatreCentsMetres;
-}(Epreuve));
+}(Course));
 exports.QuatreCentsMetres = QuatreCentsMetres;
 var MilleCinqCentsMetres = /** @class */ (function (_super) {
     __extends(MilleCinqCentsMetres, _super);
-    function MilleCinqCentsMetres(date, recordMonde) {
-        var _this = _super.call(this, date, recordMonde) || this;
+    function MilleCinqCentsMetres(date) {
+        var _this = _super.call(this, date) || this;
         _this.nom = "1500 mètres";
+        _this.recordMonde = 239.13;
         return _this;
     }
-    MilleCinqCentsMetres.prototype.getNom = function () { return this.nom; };
-    MilleCinqCentsMetres.prototype.getDate = function () { return this.date; };
-    MilleCinqCentsMetres.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
-    };
-    MilleCinqCentsMetres.prototype.afficherClassement = function () {
-    };
     return MilleCinqCentsMetres;
-}(Epreuve));
+}(Course));
 exports.MilleCinqCentsMetres = MilleCinqCentsMetres;
+// EPREUVES DE LANCER
+var Lancer = /** @class */ (function (_super) {
+    __extends(Lancer, _super);
+    function Lancer(date) {
+        var _this = _super.call(this, date) || this;
+        _this.mesure = "metres";
+        return _this;
+    }
+    return Lancer;
+}(Epreuve));
+exports.Lancer = Lancer;
+// ---------------------------------------------
+var LancerDeDisque = /** @class */ (function (_super) {
+    __extends(LancerDeDisque, _super);
+    function LancerDeDisque(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Lancer de disque";
+        _this.recordMonde = 55.87;
+        return _this;
+    }
+    return LancerDeDisque;
+}(Lancer));
+exports.LancerDeDisque = LancerDeDisque;
+var LancerDeJavelot = /** @class */ (function (_super) {
+    __extends(LancerDeJavelot, _super);
+    function LancerDeJavelot(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Lancer de javelot";
+        _this.recordMonde = 78.29;
+        return _this;
+    }
+    return LancerDeJavelot;
+}(Lancer));
+exports.LancerDeJavelot = LancerDeJavelot;
+var LancerDePoids = /** @class */ (function (_super) {
+    __extends(LancerDePoids, _super);
+    function LancerDePoids(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Lancer de poids";
+        _this.mesure = "metres";
+        _this.recordMonde = 18.03;
+        return _this;
+    }
+    return LancerDePoids;
+}(Lancer));
+exports.LancerDePoids = LancerDePoids;
+// EPREUVES DE SAUT
+var Saut = /** @class */ (function (_super) {
+    __extends(Saut, _super);
+    function Saut(date) {
+        var _this = _super.call(this, date) || this;
+        _this.mesure = "centimetres";
+        return _this;
+    }
+    return Saut;
+}(Epreuve));
+exports.Saut = Saut;
+// ---------------------------------------------
+var SautEnLongueur = /** @class */ (function (_super) {
+    __extends(SautEnLongueur, _super);
+    function SautEnLongueur(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Saut en longueur";
+        _this.recordMonde = 8.24;
+        return _this;
+    }
+    return SautEnLongueur;
+}(Saut));
+exports.SautEnLongueur = SautEnLongueur;
+var SautEnHauteur = /** @class */ (function (_super) {
+    __extends(SautEnHauteur, _super);
+    function SautEnHauteur(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Saut en hauteur";
+        _this.recordMonde = 2.27;
+        return _this;
+    }
+    return SautEnHauteur;
+}(Saut));
+exports.SautEnHauteur = SautEnHauteur;
+var SautALaPerche = /** @class */ (function (_super) {
+    __extends(SautALaPerche, _super);
+    function SautALaPerche(date) {
+        var _this = _super.call(this, date) || this;
+        _this.nom = "Saut à la perche";
+        _this.recordMonde = 55.7;
+        return _this;
+    }
+    return SautALaPerche;
+}(Saut));
+exports.SautALaPerche = SautALaPerche;

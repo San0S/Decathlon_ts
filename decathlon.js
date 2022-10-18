@@ -11,25 +11,25 @@ var Decathlon = /** @class */ (function () {
         this.lieu = lieu;
         this.nom = nom;
         // Initialisation des épreuves
-        var sautEnLongueur = new epreuves_1.SautEnLongueur(this.dateDebut, 8.24);
+        var sautEnLongueur = new epreuves_1.SautEnLongueur(this.dateDebut);
         this.epreuves.push(sautEnLongueur);
-        var sautEnHauteur = new epreuves_1.SautEnHauteur(this.dateDebut, 2.27);
+        var sautEnHauteur = new epreuves_1.SautEnHauteur(this.dateDebut);
         this.epreuves.push(sautEnHauteur);
-        var sautALaPerche = new epreuves_1.SautALaPerche(this.dateFin, 5.7);
+        var sautALaPerche = new epreuves_1.SautALaPerche(this.dateFin);
         this.epreuves.push(sautALaPerche);
-        var lancerDeDisque = new epreuves_1.LancerDeDisque(this.dateFin, 55.87);
+        var lancerDeDisque = new epreuves_1.LancerDeDisque(this.dateFin);
         this.epreuves.push(lancerDeDisque);
-        var lancerDeJavelot = new epreuves_1.LancerDeJavelot(this.dateFin, 78.29);
+        var lancerDeJavelot = new epreuves_1.LancerDeJavelot(this.dateFin);
         this.epreuves.push(lancerDeJavelot);
-        var lancerDePoids = new epreuves_1.LancerDePoids(this.dateDebut, 18.03);
+        var lancerDePoids = new epreuves_1.LancerDePoids(this.dateDebut);
         this.epreuves.push(lancerDePoids);
-        var centMetres = new epreuves_1.CentMetres(this.dateDebut, 10.12);
+        var centMetres = new epreuves_1.CentMetres(this.dateDebut);
         this.epreuves.push(centMetres);
-        var centDixMetresHaies = new epreuves_1.CentDixMetresHaies(this.dateFin, 13.44);
+        var centDixMetresHaies = new epreuves_1.CentDixMetresHaies(this.dateFin);
         this.epreuves.push(centDixMetresHaies);
-        var quatreCentsMetres = new epreuves_1.QuatreCentsMetres(this.dateDebut, 45);
+        var quatreCentsMetres = new epreuves_1.QuatreCentsMetres(this.dateDebut);
         this.epreuves.push(quatreCentsMetres);
-        var milleCinqCentsMetres = new epreuves_1.MilleCinqCentsMetres(this.dateFin, 3.59);
+        var milleCinqCentsMetres = new epreuves_1.MilleCinqCentsMetres(this.dateFin);
         this.epreuves.push(milleCinqCentsMetres);
     }
     Decathlon.prototype.afficher = function () {
