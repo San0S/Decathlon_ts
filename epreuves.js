@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.Saut = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.Lancer = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.Course = exports.Epreuve = void 0;
+exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.Epreuve = void 0;
 var Epreuve = /** @class */ (function () {
     function Epreuve(date) {
         this.date = date;
@@ -23,13 +23,28 @@ var Epreuve = /** @class */ (function () {
     Epreuve.prototype.getNom = function () { return this.nom; };
     Epreuve.prototype.getDate = function () { return this.date; };
     Epreuve.prototype.getMesure = function () { return this.mesure; };
-    Epreuve.prototype.afficher = function () {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
+    Epreuve.prototype.getRecordMonde = function () { return this.recordMonde; };
+    Epreuve.prototype.setRecordMonde = function (record) { this.recordMonde = record; };
+    Epreuve.prototype.afficher = function () { console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde); };
+    // affichage du classement des athlètes au sein de l'épreuve
+    Epreuve.prototype.afficherClassement = function (classement) {
+        if (classement != undefined) {
+            console.log("\nVoici le classement de cette épreuve :");
+            for (var i = 0; i < classement.length; i++) {
+                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
+            }
+        }
+        else {
+            // Si tous les athlètes n'ont pas un résultat enregistré dans l'épreuve, on affiche le suivant
+            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+        }
     };
     return Epreuve;
 }());
 exports.Epreuve = Epreuve;
-// EPREUVE DE COURSE
+// =============================================
+//             EPREUVE DE COURSE
+// =============================================
 var Course = /** @class */ (function (_super) {
     __extends(Course, _super);
     function Course(date) {
@@ -39,7 +54,6 @@ var Course = /** @class */ (function (_super) {
     }
     return Course;
 }(Epreuve));
-exports.Course = Course;
 // ---------------------------------------------
 var CentMetres = /** @class */ (function (_super) {
     __extends(CentMetres, _super);
@@ -49,17 +63,13 @@ var CentMetres = /** @class */ (function (_super) {
         _this.recordMonde = 10.12;
         return _this;
     }
-    // REMPLACER LES AUTRES METHODES AFFICHERCLASSEMENT PAR CETTE VERSION :
-    CentMetres.prototype.afficherClassement = function (athletes) {
+    CentMetres.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatCentMetres().getPoints() - a.getResultatCentMetres().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return CentMetres;
@@ -73,16 +83,13 @@ var CentDixMetresHaies = /** @class */ (function (_super) {
         _this.recordMonde = 13.44;
         return _this;
     }
-    CentDixMetresHaies.prototype.afficherClassement = function (athletes) {
+    CentDixMetresHaies.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatCentDixMetresHaies().getPoints() - a.getResultatCentDixMetresHaies().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return CentDixMetresHaies;
@@ -96,16 +103,13 @@ var QuatreCentsMetres = /** @class */ (function (_super) {
         _this.recordMonde = 45;
         return _this;
     }
-    QuatreCentsMetres.prototype.afficherClassement = function (athletes) {
+    QuatreCentsMetres.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatQuatreCentsMetres().getPoints() - a.getResultatQuatreCentsMetres().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return QuatreCentsMetres;
@@ -119,22 +123,21 @@ var MilleCinqCentsMetres = /** @class */ (function (_super) {
         _this.recordMonde = 239.13;
         return _this;
     }
-    MilleCinqCentsMetres.prototype.afficherClassement = function (athletes) {
+    MilleCinqCentsMetres.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatMilleCinqCentsMetres().getPoints() - a.getResultatMilleCinqCentsMetres().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return MilleCinqCentsMetres;
 }(Course));
 exports.MilleCinqCentsMetres = MilleCinqCentsMetres;
-// EPREUVES DE LANCER
+// =============================================
+//             EPREUVES DE LANCER
+// =============================================
 var Lancer = /** @class */ (function (_super) {
     __extends(Lancer, _super);
     function Lancer(date) {
@@ -144,7 +147,6 @@ var Lancer = /** @class */ (function (_super) {
     }
     return Lancer;
 }(Epreuve));
-exports.Lancer = Lancer;
 // ---------------------------------------------
 var LancerDeDisque = /** @class */ (function (_super) {
     __extends(LancerDeDisque, _super);
@@ -154,16 +156,13 @@ var LancerDeDisque = /** @class */ (function (_super) {
         _this.recordMonde = 55.87;
         return _this;
     }
-    LancerDeDisque.prototype.afficherClassement = function (athletes) {
+    LancerDeDisque.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatLancerDeDisque().getPoints() - a.getResultatLancerDeDisque().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return LancerDeDisque;
@@ -177,16 +176,13 @@ var LancerDeJavelot = /** @class */ (function (_super) {
         _this.recordMonde = 78.29;
         return _this;
     }
-    LancerDeJavelot.prototype.afficherClassement = function (athletes) {
+    LancerDeJavelot.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatLancerDeJavelot().getPoints() - a.getResultatLancerDeJavelot().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return LancerDeJavelot;
@@ -201,22 +197,21 @@ var LancerDePoids = /** @class */ (function (_super) {
         _this.recordMonde = 18.03;
         return _this;
     }
-    LancerDePoids.prototype.afficherClassement = function (athletes) {
+    LancerDePoids.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatLancerDePoids().getPoints() - a.getResultatLancerDePoids().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return LancerDePoids;
 }(Lancer));
 exports.LancerDePoids = LancerDePoids;
-// EPREUVES DE SAUT
+// =============================================
+//             EPREUVES DE SAUT
+// =============================================
 var Saut = /** @class */ (function (_super) {
     __extends(Saut, _super);
     function Saut(date) {
@@ -226,26 +221,22 @@ var Saut = /** @class */ (function (_super) {
     }
     return Saut;
 }(Epreuve));
-exports.Saut = Saut;
 // ---------------------------------------------
 var SautEnLongueur = /** @class */ (function (_super) {
     __extends(SautEnLongueur, _super);
     function SautEnLongueur(date) {
         var _this = _super.call(this, date) || this;
         _this.nom = "Saut en longueur";
-        _this.recordMonde = 8.24;
+        _this.recordMonde = 824;
         return _this;
     }
-    SautEnLongueur.prototype.afficherClassement = function (athletes) {
+    SautEnLongueur.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatSautEnLongueur().getPoints() - a.getResultatSautEnLongueur().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return SautEnLongueur;
@@ -256,19 +247,16 @@ var SautEnHauteur = /** @class */ (function (_super) {
     function SautEnHauteur(date) {
         var _this = _super.call(this, date) || this;
         _this.nom = "Saut en hauteur";
-        _this.recordMonde = 2.27;
+        _this.recordMonde = 227;
         return _this;
     }
-    SautEnHauteur.prototype.afficherClassement = function (athletes) {
+    SautEnHauteur.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatSautEnHauteur().getPoints() - a.getResultatSautEnHauteur().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return SautEnHauteur;
@@ -279,19 +267,16 @@ var SautALaPerche = /** @class */ (function (_super) {
     function SautALaPerche(date) {
         var _this = _super.call(this, date) || this;
         _this.nom = "Saut à la perche";
-        _this.recordMonde = 55.7;
+        _this.recordMonde = 570;
         return _this;
     }
-    SautALaPerche.prototype.afficherClassement = function (athletes) {
+    SautALaPerche.prototype.getClassement = function (athletes) {
         try {
             var classement = athletes.sort(function (a, b) { return b.getResultatSautALaPerche().getPoints() - a.getResultatSautALaPerche().getPoints(); });
-            console.log("\nVoici le classement de cette épreuve :");
-            for (var i = 0; i < classement.length; i++) {
-                console.log((i + 1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         }
         catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+            return undefined;
         }
     };
     return SautALaPerche;

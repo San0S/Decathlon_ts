@@ -15,11 +15,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.ResultatSaut = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.ResultatLancer = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.ResultatCourse = exports.Resultat = void 0;
+exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = void 0;
 var Resultat = /** @class */ (function () {
-    function Resultat(perf) {
+    function Resultat(perf, valA, valB, valC) {
         this.points = 0;
         this.performance = perf;
+        this.valA = valA;
+        this.valB = valB;
+        this.valC = valC;
     }
     Resultat.prototype.getPoints = function () {
         return this.points;
@@ -32,16 +35,15 @@ var Resultat = /** @class */ (function () {
     };
     return Resultat;
 }());
-exports.Resultat = Resultat;
-// Epreuve de course
+// =============================================
+//             EPREUVE DE COURSE
+// =============================================
 var ResultatCourse = /** @class */ (function (_super) {
     __extends(ResultatCourse, _super);
     function ResultatCourse(perf, valA, valB, valC) {
-        var _this = _super.call(this, perf) || this;
+        var _this = _super.call(this, perf, valA, valB, valC) || this;
         _this.unite = "secondes";
-        _this.valA = valA;
-        _this.valB = valB;
-        _this.valC = valC;
+        // Formule pour calculer le nombre de points remportés pour les épreuves de course
         _this.points = Math.round(_this.valA * Math.pow((_this.valB - _this.performance), _this.valC));
         if (_this.points < 700 || _this.performance > _this.valB) {
             _this.points = 0;
@@ -53,13 +55,11 @@ var ResultatCourse = /** @class */ (function (_super) {
     }
     return ResultatCourse;
 }(Resultat));
-exports.ResultatCourse = ResultatCourse;
+// ---------------------------------------------
 var CentMetres = /** @class */ (function (_super) {
     __extends(CentMetres, _super);
     function CentMetres(perf) {
-        var _this = _super.call(this, perf, 25.4347, 18, 1.81) || this;
-        _this.nomEpreuve = "100 mètres";
-        return _this;
+        return _super.call(this, perf, 25.4347, 18, 1.81) || this;
     }
     return CentMetres;
 }(ResultatCourse));
@@ -88,15 +88,15 @@ var MilleCinqCentsMetres = /** @class */ (function (_super) {
     return MilleCinqCentsMetres;
 }(ResultatCourse));
 exports.MilleCinqCentsMetres = MilleCinqCentsMetres;
-// Epreuves de lancer
+// =============================================
+//             EPREUVES DE LANCER
+// =============================================
 var ResultatLancer = /** @class */ (function (_super) {
     __extends(ResultatLancer, _super);
     function ResultatLancer(perf, valA, valB, valC) {
-        var _this = _super.call(this, perf) || this;
+        var _this = _super.call(this, perf, valA, valB, valC) || this;
         _this.unite = "mètres";
-        _this.valA = valA;
-        _this.valB = valB;
-        _this.valC = valC;
+        // Formule pour calculer le nombre de points remportés pour les épreuves de lancer
         _this.points = Math.round(_this.valA * Math.pow((_this.performance - _this.valB), _this.valC));
         if (_this.points < 700) {
             _this.points = 0;
@@ -108,7 +108,7 @@ var ResultatLancer = /** @class */ (function (_super) {
     }
     return ResultatLancer;
 }(Resultat));
-exports.ResultatLancer = ResultatLancer;
+// ---------------------------------------------
 var LancerDeDisque = /** @class */ (function (_super) {
     __extends(LancerDeDisque, _super);
     function LancerDeDisque(perf) {
@@ -133,15 +133,15 @@ var LancerDePoids = /** @class */ (function (_super) {
     return LancerDePoids;
 }(ResultatLancer));
 exports.LancerDePoids = LancerDePoids;
-// Epreuves de saut
+// =============================================
+//             EPREUVES DE SAUT
+// =============================================
 var ResultatSaut = /** @class */ (function (_super) {
     __extends(ResultatSaut, _super);
     function ResultatSaut(perf, valA, valB, valC) {
-        var _this = _super.call(this, perf) || this;
+        var _this = _super.call(this, perf, valA, valB, valC) || this;
         _this.unite = "centimètres";
-        _this.valA = valA;
-        _this.valB = valB;
-        _this.valC = valC;
+        // Formule pour calculer le nombre de points remportés pour les épreuves de saut
         _this.points = Math.round(_this.valA * Math.pow((_this.performance - _this.valB), _this.valC));
         if (_this.points < 700) {
             _this.points = 0;
@@ -153,7 +153,7 @@ var ResultatSaut = /** @class */ (function (_super) {
     }
     return ResultatSaut;
 }(Resultat));
-exports.ResultatSaut = ResultatSaut;
+// ---------------------------------------------
 var SautEnLongueur = /** @class */ (function (_super) {
     __extends(SautEnLongueur, _super);
     function SautEnLongueur(perf) {

@@ -6,29 +6,45 @@ export abstract class Epreuve {
     protected recordMonde : number;
     protected mesure : string;
 
-    
-
     constructor(date : Date){
         this.date = date;
     }
 
-
     getNom(): string { return this.nom; }
     getDate(): Date { return this.date; }
     getMesure(): string { return this.mesure; }
+    getRecordMonde(): number { return this.recordMonde; }
+    setRecordMonde(record : number ): void { this.recordMonde = record; }
 
-    afficher(): void {
-        console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde);
+    afficher(): void { console.log(this.nom, ", jour :", this.date.getDate(), ", record :", this.recordMonde); }
+
+
+    // affichage du classement des athlètes au sein de l'épreuve
+    afficherClassement(classement: Participant[] | undefined): void {
+        if (classement != undefined) {
+            console.log("\nVoici le classement de cette épreuve :")
+            for (let i = 0; i < classement.length; i++) {
+                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
+            }
+        } else {
+            // Si tous les athlètes n'ont pas un résultat enregistré dans l'épreuve, on affiche le suivant
+            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.");
+        }
     }
 
-    abstract afficherClassement(athletes : Participant[]): void 
+    // On trie les athlètes selon les points qu'ils ont marqués à l'épreuve dans l'ordre décroissant
+    // Si tous les athlètes ne possèdent un résultat enregistré dans l'épreuve, on retourne "undefined"
+    abstract getClassement(athletes : Participant[]): Participant[] | undefined;
 }
 
 
 
-// EPREUVE DE COURSE
 
-export abstract class Course extends Epreuve {
+// =============================================
+//             EPREUVE DE COURSE
+// =============================================
+
+abstract class Course extends Epreuve {
     constructor(date : Date) {
         super(date);
         this.mesure = "secondes";
@@ -44,20 +60,13 @@ export class CentMetres extends Course {
         this.recordMonde = 10.12;
     }
 
-
-
-    // REMPLACER LES AUTRES METHODES AFFICHERCLASSEMENT PAR CETTE VERSION :
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatCentMetres().getPoints() - a.getResultatCentMetres().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
@@ -68,20 +77,15 @@ export class CentDixMetresHaies extends Course {
         this.recordMonde = 13.44;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatCentDixMetresHaies().getPoints() - a.getResultatCentDixMetresHaies().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement;
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
-
 
 export class QuatreCentsMetres extends Course {
     constructor(date : Date){
@@ -90,20 +94,15 @@ export class QuatreCentsMetres extends Course {
         this.recordMonde = 45;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatQuatreCentsMetres().getPoints() - a.getResultatQuatreCentsMetres().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
-
 
 export class MilleCinqCentsMetres extends Course {
     constructor(date : Date){
@@ -113,25 +112,24 @@ export class MilleCinqCentsMetres extends Course {
 
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatMilleCinqCentsMetres().getPoints() - a.getResultatMilleCinqCentsMetres().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
 
 
-// EPREUVES DE LANCER
 
-export abstract class Lancer extends Epreuve {
+// =============================================
+//             EPREUVES DE LANCER
+// =============================================
+
+abstract class Lancer extends Epreuve {
     constructor(date : Date) {
         super(date);
         this.mesure = "metres";
@@ -147,17 +145,13 @@ export class LancerDeDisque extends Lancer {
         this.recordMonde = 55.87;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatLancerDeDisque().getPoints() - a.getResultatLancerDeDisque().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
@@ -168,17 +162,13 @@ export class LancerDeJavelot extends Lancer {
         this.recordMonde = 78.29;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatLancerDeJavelot().getPoints() - a.getResultatLancerDeJavelot().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
@@ -190,26 +180,24 @@ export class LancerDePoids extends Lancer {
         this.recordMonde = 18.03;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatLancerDePoids().getPoints() - a.getResultatLancerDePoids().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
 
 
 
-// EPREUVES DE SAUT
+// =============================================
+//             EPREUVES DE SAUT
+// =============================================
 
-export abstract class Saut extends Epreuve {
+abstract class Saut extends Epreuve {
     constructor(date : Date) {
         super(date);
         this.mesure = "centimetres";
@@ -223,42 +211,33 @@ export class SautEnLongueur extends Saut {
     constructor(date : Date){
         super(date);
         this.nom = "Saut en longueur";
-        this.recordMonde = 8.24;
+        this.recordMonde = 824;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatSautEnLongueur().getPoints() - a.getResultatSautEnLongueur().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
-
 
 export class SautEnHauteur extends Saut {
     constructor(date : Date){
         super(date);
         this.nom = "Saut en hauteur";
-        this.recordMonde = 2.27;
+        this.recordMonde = 227;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatSautEnHauteur().getPoints() - a.getResultatSautEnHauteur().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
 
@@ -267,19 +246,15 @@ export class SautALaPerche extends Saut {
     constructor(date : Date){
         super(date);
         this.nom = "Saut à la perche";
-        this.recordMonde = 55.7;
+        this.recordMonde = 570;
     }
 
-    afficherClassement(athletes: Participant[]): void {
+    getClassement(athletes: Participant[]): Participant[] | undefined {
         try {
             let classement = athletes.sort((a,b) => b.getResultatSautALaPerche().getPoints() - a.getResultatSautALaPerche().getPoints());
-            console.log("\nVoici le classement de cette épreuve :")
-            for (let i = 0; i < classement.length; i++) {
-                console.log((i+1) + ") " + classement[i].formatAfficherResultat(this.nom));
-            }
+            return classement
         } catch (TypeError) {
-            console.log("Veuillez entrer les performances de chaque athlète pour afficher le classement de cette épreuve.")
+            return undefined;
         }
-
     }
 }
