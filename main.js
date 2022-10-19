@@ -44,16 +44,24 @@ function choixAthlete() {
         console.log("Erreur, vous avez saisi un numéro d'athlète incorrect.");
         choix = Number(readlineSync.question("Quel athlete voulez-vous gerer (0 pour sortir) ? "));
     }
-    if (choix == 0) {
-        return undefined;
+    var find = false;
+    if (choix != 0) {
+        do {
+            for (var i = 0; i < athletes.length; i++) {
+                if (choix == i + 1) {
+                    // DEBUG
+                    console.log("#DEBUG# pts athlete :", athletes[i].getPoints());
+                    return athletes[i];
+                }
+            }
+            console.log("Erreur, vous avez saisi un numéro d'athlète incorrect.");
+            choix = Number(readlineSync.question("Quel athlete voulez-vous gerer (0 pour sortir) ? "));
+        } while (find == false);
+        {
+        }
     }
     else {
-        for (var i = 0; i < athletes.length; i++) {
-            if (choix == i + 1) {
-                console.log("Gestion de l'althèle : " + athletes[i].getNom() + " " + athletes[i].getPrenom());
-                return athletes[i];
-            }
-        }
+        return undefined;
     }
 }
 function choixJour() {
@@ -68,78 +76,143 @@ function choixJour() {
 function saisieResultat(epreuve, athlete) {
     var result = Number(readlineSync.question("Veuillez saisir le resultat en " + (epreuve === null || epreuve === void 0 ? void 0 : epreuve.getMesure()) + " : "));
     if (epreuve instanceof e.CentMetres) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentMetres(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentMetres(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatCentMetres().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentMetres().getPoints());
     }
     else if (epreuve instanceof e.CentDixMetresHaies) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentDixMetresHaies(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatCentDixMetresHaies(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatCentDixMetresHaies().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatCentDixMetresHaies().getPoints());
     }
     else if (epreuve instanceof e.QuatreCentsMetres) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatQuatreCentsMetres(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatQuatreCentsMetres(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatQuatreCentsMetres().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatQuatreCentsMetres().getPoints());
     }
     else if (epreuve instanceof e.MilleCinqCentsMetres) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatMilleCinqCentsMetres(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatMilleCinqCentsMetres(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatMilleCinqCentsMetres().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatMilleCinqCentsMetres().getPoints());
     }
     else if (epreuve instanceof e.LancerDeDisque) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeDisque(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeDisque(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatLancerDeDisque().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeDisque().getPoints());
     }
     else if (epreuve instanceof e.LancerDeJavelot) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeJavelot(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDeJavelot(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatLancerDeJavelot().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDeJavelot().getPoints());
     }
     else if (epreuve instanceof e.LancerDePoids) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDePoids(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatLancerDePoids(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatLancerDePoids().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatLancerDePoids().getPoints());
     }
     else if (epreuve instanceof e.SautEnLongueur) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnLongueur(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnLongueur(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatSautEnLongueur().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnLongueur().getPoints());
     }
     else if (epreuve instanceof e.SautEnHauteur) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnHauteur(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautEnHauteur(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatSautEnHauteur().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautEnHauteur().getPoints());
     }
     else if (epreuve instanceof e.SautALaPerche) {
-        athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautALaPerche(result);
+        if ((athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche()) == undefined) {
+            athlete === null || athlete === void 0 ? void 0 : athlete.setResultatSautALaPerche(result);
+            athlete === null || athlete === void 0 ? void 0 : athlete.ajouterPoints(athlete.getResultatSautALaPerche().getPoints());
+        }
+        else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
         // DEBUG
-        console.log("l'athlète : ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), athlete === null || athlete === void 0 ? void 0 : athlete.getPrenom(), ", a réalisé au", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "une performance de :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPerformance());
-        console.log("Ce qui équivaut à :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete === null || athlete === void 0 ? void 0 : athlete.getNom(), "epreuve :", epreuve === null || epreuve === void 0 ? void 0 : epreuve.getNom(), "perf :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPerformance(), "pts :", athlete === null || athlete === void 0 ? void 0 : athlete.getResultatSautALaPerche().getPoints());
     }
     else {
         console.log("Erreur, épreuve inconnue");
     }
 }
 var jour;
+var athlete;
+var epreuve;
 // Boucle principale
 do {
     jour = choixJour();
     if (jour != 0) {
         var date = ((jour == 1) ? dateDebut : dateFin);
-        var epreuve = choixEpreuveByDay(date);
-        var athlete = choixAthlete();
-        saisieResultat(epreuve, athlete);
+        epreuve = choixEpreuveByDay(date);
+        do {
+            athlete = choixAthlete();
+            if (athlete != undefined) {
+                saisieResultat(epreuve, athlete);
+            }
+        } while (athlete != undefined);
+        console.log("\n--------------------");
+        epreuve === null || epreuve === void 0 ? void 0 : epreuve.afficherClassement(decathlon.getParticipants());
+        decathlon.afficherClassementGlobal();
+        console.log("\nLes meilleurs sauteurs, lanceurs, coureurs :");
+        decathlon.afficherMeilleurAthleteByCateg("saut");
+        decathlon.afficherMeilleurAthleteByCateg("lancer");
+        decathlon.afficherMeilleurAthleteByCateg("course");
+        decathlon.afficherMeilleurAthletePays("FRA");
+        console.log("\n======================================================================================\n");
     }
     else {
         console.log("Sauvegarde...");

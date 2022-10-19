@@ -18,9 +18,6 @@ decathlon.ajouterParticipant(athlete2);
 decathlon.ajouterParticipant(athlete3);
 
 
-
-
-
 function choixEpreuveByDay(jour: Date): e.Epreuve | undefined {
     console.log("Voici les épreuves de ce jour :");
     let epreuves = decathlon.getEpreuvesByDay(jour);
@@ -44,7 +41,9 @@ function choixEpreuveByDay(jour: Date): e.Epreuve | undefined {
 
 
 function choixAthlete(): Participant | undefined {
+    
     let athletes = decathlon.getParticipants();
+    
     console.log("Voici la liste des athlètes :");
     for (let i = 0; i < athletes.length; i++) {
         console.log("\t" + (i+1) + " : " + athletes[i].formatAfficher());
@@ -54,16 +53,24 @@ function choixAthlete(): Participant | undefined {
         console.log("Erreur, vous avez saisi un numéro d'athlète incorrect.");
         choix = Number(readlineSync.question("Quel athlete voulez-vous gerer (0 pour sortir) ? "));
     }
-    if (choix == 0) {
-        return undefined;
-    } else {
-        for (let i = 0; i < athletes.length; i++) {
-            if (choix == i+1) {
-                console.log("Gestion de l'althèle : " + athletes[i].getNom() + " " + athletes[i].getPrenom());
-                return athletes[i];
+    let find = false;
+    if (choix != 0) {
+        do {
+            for (let i = 0; i < athletes.length; i++) {
+                if (choix == i+1) {
+                    // DEBUG
+                    console.log("#DEBUG# pts athlete :", athletes[i].getPoints())
+                    return athletes[i];
+                }
             }
+            console.log("Erreur, vous avez saisi un numéro d'athlète incorrect.");
+            choix = Number(readlineSync.question("Quel athlete voulez-vous gerer (0 pour sortir) ? "));
+        } while (find == false) {
             
         }
+
+    } else {
+        return undefined;
     }
 }
 
@@ -81,67 +88,127 @@ function choixJour(): number {
 
 
 function saisieResultat(epreuve: e.Epreuve | undefined, athlete: Participant | undefined) {
-    
     let result = Number(readlineSync.question("Veuillez saisir le resultat en " + epreuve?.getMesure() + " : "));
+
     if (epreuve instanceof e.CentMetres) {
-        athlete?.setResultatCentMetres(result)
+        if (athlete?.getResultatCentMetres() == undefined) {
+            athlete?.setResultatCentMetres(result);
+            athlete?.ajouterPoints(athlete.getResultatCentMetres().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatCentMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatCentMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatCentMetres().getPerformance(), "pts :", athlete?.getResultatCentMetres().getPoints());
+
 
     } else if (epreuve instanceof e.CentDixMetresHaies) {
-        athlete?.setResultatCentDixMetresHaies(result)
+        if (athlete?.getResultatCentDixMetresHaies() == undefined) {
+            athlete?.setResultatCentDixMetresHaies(result);
+            athlete?.ajouterPoints(athlete.getResultatCentDixMetresHaies().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+        
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatCentDixMetresHaies().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatCentDixMetresHaies().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatCentDixMetresHaies().getPerformance(), "pts :", athlete?.getResultatCentDixMetresHaies().getPoints());
+
 
     } else if (epreuve instanceof e.QuatreCentsMetres) {
-        athlete?.setResultatQuatreCentsMetres(result)
+        if (athlete?.getResultatQuatreCentsMetres() == undefined) {
+            athlete?.setResultatQuatreCentsMetres(result);
+            athlete?.ajouterPoints(athlete.getResultatQuatreCentsMetres().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatQuatreCentsMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatQuatreCentsMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatQuatreCentsMetres().getPerformance(), "pts :", athlete?.getResultatQuatreCentsMetres().getPoints());
+
 
     } else if (epreuve instanceof e.MilleCinqCentsMetres) {
-        athlete?.setResultatMilleCinqCentsMetres(result)
+        if (athlete?.getResultatMilleCinqCentsMetres() == undefined) {
+            athlete?.setResultatMilleCinqCentsMetres(result);
+            athlete?.ajouterPoints(athlete.getResultatMilleCinqCentsMetres().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatMilleCinqCentsMetres().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatMilleCinqCentsMetres().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatMilleCinqCentsMetres().getPerformance(), "pts :", athlete?.getResultatMilleCinqCentsMetres().getPoints());
+
 
     } else if (epreuve instanceof e.LancerDeDisque) {
-        athlete?.setResultatLancerDeDisque(result)
+        if (athlete?.getResultatLancerDeDisque() == undefined) {
+            athlete?.setResultatLancerDeDisque(result);
+            athlete?.ajouterPoints(athlete.getResultatLancerDeDisque().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatLancerDeDisque().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatLancerDeDisque().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatLancerDeDisque().getPerformance(), "pts :", athlete?.getResultatLancerDeDisque().getPoints());
+
 
     } else if (epreuve instanceof e.LancerDeJavelot) {
-        athlete?.setResultatLancerDeJavelot(result)
+        if (athlete?.getResultatLancerDeJavelot() == undefined) {
+            athlete?.setResultatLancerDeJavelot(result);
+            athlete?.ajouterPoints(athlete.getResultatLancerDeJavelot().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatLancerDeJavelot().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatLancerDeJavelot().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatLancerDeJavelot().getPerformance(), "pts :", athlete?.getResultatLancerDeJavelot().getPoints());
+
 
     } else if (epreuve instanceof e.LancerDePoids) {
-        athlete?.setResultatLancerDePoids(result)
+        if (athlete?.getResultatLancerDePoids() == undefined) {
+            athlete?.setResultatLancerDePoids(result);
+            athlete?.ajouterPoints(athlete.getResultatLancerDePoids().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatLancerDePoids().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatLancerDePoids().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatLancerDePoids().getPerformance(), "pts :", athlete?.getResultatLancerDePoids().getPoints());
+
 
     } else if (epreuve instanceof e.SautEnLongueur) {
-        athlete?.setResultatSautEnLongueur(result)
+        if (athlete?.getResultatSautEnLongueur() == undefined) {
+            athlete?.setResultatSautEnLongueur(result);
+            athlete?.ajouterPoints(athlete.getResultatSautEnLongueur().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatSautEnLongueur().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatSautEnLongueur().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatSautEnLongueur().getPerformance(), "pts :", athlete?.getResultatSautEnLongueur().getPoints());
+
 
     } else if (epreuve instanceof e.SautEnHauteur) {
-        athlete?.setResultatSautEnHauteur(result)
-        // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatSautEnHauteur().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatSautEnHauteur().getPoints(), "points");
+        if (athlete?.getResultatSautEnHauteur() == undefined) {
+            athlete?.setResultatSautEnHauteur(result);
+            athlete?.ajouterPoints(athlete.getResultatSautEnHauteur().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
+       // DEBUG
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatSautEnHauteur().getPerformance(), "pts :", athlete?.getResultatSautEnHauteur().getPoints());
+
 
     } else if (epreuve instanceof e.SautALaPerche) {
-        athlete?.setResultatSautALaPerche(result)
+        if (athlete?.getResultatSautALaPerche() == undefined) {
+            athlete?.setResultatSautALaPerche(result);
+            athlete?.ajouterPoints(athlete.getResultatSautALaPerche().getPoints());
+        } else {
+            console.log("Un résultat a déjà été saisi pour cet athlète dans cette épreuve !");
+        }
+
         // DEBUG
-        console.log("l'athlète : ", athlete?.getNom(), athlete?.getPrenom(), ", a réalisé au", epreuve?.getNom(), "une performance de :", athlete?.getResultatSautALaPerche().getPerformance());
-        console.log("Ce qui équivaut à :", athlete?.getResultatSautALaPerche().getPoints(), "points");
+        console.log("#DEBUG# athlete: ", athlete?.getNom(), "epreuve :", epreuve?.getNom(),  "perf :",athlete?.getResultatSautALaPerche().getPerformance(), "pts :", athlete?.getResultatSautALaPerche().getPoints());
+
 
     } else {
         console.log("Erreur, épreuve inconnue")
@@ -149,15 +216,31 @@ function saisieResultat(epreuve: e.Epreuve | undefined, athlete: Participant | u
 }
 
 let jour: number;
+let athlete: Participant | undefined;
+let epreuve: e.Epreuve | undefined;
 
 // Boucle principale
 do {
     jour = choixJour()
     if (jour != 0) {
         let date = ((jour == 1) ? dateDebut : dateFin);
-        let epreuve = choixEpreuveByDay(date);
-        let athlete = choixAthlete();
-        saisieResultat(epreuve, athlete);
+        epreuve = choixEpreuveByDay(date);
+        do {
+            athlete = choixAthlete();
+            if (athlete != undefined) {
+                saisieResultat(epreuve, athlete);
+            }
+        } while (athlete != undefined);
+        console.log("\n--------------------");
+        epreuve?.afficherClassement(decathlon.getParticipants());
+        decathlon.afficherClassementGlobal();
+        console.log("\nLes meilleurs sauteurs, lanceurs, coureurs :");
+        decathlon.afficherMeilleurAthleteByCateg("saut");
+        decathlon.afficherMeilleurAthleteByCateg("lancer");
+        decathlon.afficherMeilleurAthleteByCateg("course");
+
+        decathlon.afficherMeilleurAthletePays("FRA");
+        console.log("\n======================================================================================\n")
     } else {
         console.log("Sauvegarde...");
     }

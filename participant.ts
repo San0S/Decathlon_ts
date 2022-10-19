@@ -32,7 +32,45 @@ export class Participant {
     }
 
     formatAfficher(): string {
-        return this.nom.toUpperCase() + " " + this.prenom + "(" + this.nationnalite + "), n°" + this.numero;
+        return this.nom.toUpperCase() + " " + this.prenom + " (" + this.nationnalite + "), n°" + this.numero;
+    }
+
+    //implémenter fonction d'affichage selon résultat
+    formatAfficherResultat(epreuve : string): string {
+        switch (epreuve) {
+            case "100 mètres":
+                return this.formatAfficher() + " " + this.getResultatCentMetres().getPerformance() + " : " + this.getResultatCentMetres().getPoints();
+        
+            case "110 mètres haies":
+                return this.formatAfficher() + " " + this.getResultatCentDixMetresHaies().getPerformance() + " : " + this.getResultatCentDixMetresHaies().getPoints();
+
+            case "400 mètres":
+                return this.formatAfficher() + " " + this.getResultatQuatreCentsMetres().getPerformance() + " : " + this.getResultatQuatreCentsMetres().getPoints();
+
+            case "1500 mètres":
+                return this.formatAfficher() + " " + this.getResultatMilleCinqCentsMetres().getPerformance() + " : " + this.getResultatMilleCinqCentsMetres().getPoints();
+
+            case "Lancer de disque":
+                return this.formatAfficher() + " " + this.getResultatLancerDeDisque().getPerformance() + " : " + this.getResultatLancerDeDisque().getPoints();
+
+            case "Lancer de javelot":
+                return this.formatAfficher() + " " + this.getResultatLancerDeJavelot().getPerformance() + " : " + this.getResultatLancerDeJavelot().getPoints();
+
+            case "Lancer de poids":
+                return this.formatAfficher() + " " + this.getResultatLancerDePoids().getPerformance() + " : " + this.getResultatLancerDePoids().getPoints();
+
+            case "Saut en longueur":
+                return this.formatAfficher() + " " + this.getResultatSautEnLongueur().getPerformance() + " : " + this.getResultatSautEnLongueur().getPoints();
+
+            case "Saut en hauteur":
+                return this.formatAfficher() + " " + this.getResultatSautEnHauteur().getPerformance() + " : " + this.getResultatSautEnHauteur().getPoints();
+
+            case "Saut à la perche":
+                return this.formatAfficher() + " " + this.getResultatSautALaPerche().getPerformance() + " : " + this.getResultatSautALaPerche().getPoints();
+
+            default:
+                return "erreur format de resultat inconnu";
+        }
     }
 
 

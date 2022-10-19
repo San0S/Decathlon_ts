@@ -18,10 +18,14 @@ exports.__esModule = true;
 exports.SautALaPerche = exports.SautEnHauteur = exports.SautEnLongueur = exports.ResultatSaut = exports.LancerDePoids = exports.LancerDeJavelot = exports.LancerDeDisque = exports.ResultatLancer = exports.MilleCinqCentsMetres = exports.QuatreCentsMetres = exports.CentDixMetresHaies = exports.CentMetres = exports.ResultatCourse = exports.Resultat = void 0;
 var Resultat = /** @class */ (function () {
     function Resultat(perf) {
+        this.points = 0;
         this.performance = perf;
     }
     Resultat.prototype.getPoints = function () {
         return this.points;
+    };
+    Resultat.prototype.getPerformanceBrut = function () {
+        return this.performance;
     };
     Resultat.prototype.getPerformance = function () {
         return this.performance + " " + this.unite;
@@ -53,7 +57,9 @@ exports.ResultatCourse = ResultatCourse;
 var CentMetres = /** @class */ (function (_super) {
     __extends(CentMetres, _super);
     function CentMetres(perf) {
-        return _super.call(this, perf, 25.4347, 18, 1.81) || this;
+        var _this = _super.call(this, perf, 25.4347, 18, 1.81) || this;
+        _this.nomEpreuve = "100 mètres";
+        return _this;
     }
     return CentMetres;
 }(ResultatCourse));

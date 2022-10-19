@@ -1,7 +1,8 @@
 export abstract class Resultat {
-    protected points : number;
+    protected points : number = 0;
     protected performance : number;
     protected unite : string;
+    protected nomEpreuve : string;
 
     // Constantes utilisées depuis 1984 dans le calcul des points gagnés selon la performance de l'athlète
     protected valA : number;
@@ -15,6 +16,10 @@ export abstract class Resultat {
     
     getPoints(): number {
         return this.points;
+    }
+
+    getPerformanceBrut(): number {
+        return this.performance;
     }
 
     getPerformance(): string {
@@ -53,6 +58,7 @@ export class CentMetres extends ResultatCourse {
 
     constructor(perf : number) {
         super(perf, 25.4347, 18, 1.81);
+        this.nomEpreuve = "100 mètres"
     }
 }
 
