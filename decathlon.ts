@@ -48,14 +48,7 @@ export class Decathlon {
     ajouterParticipant(athlete : Participant): void {
         this.participants.push(athlete);
     }
-
-    // Affichage du décathlon (son nom, son lieu et ses dates)
-    afficher(): void {
-        let formatDateDebut : string = this.dateDebut.getDate() + "/" + this.dateDebut.getMonth() + "/" + this.dateDebut.getFullYear();
-        let formatDateFin : string = this.dateFin.getDate() + "/" + this.dateFin.getMonth() + "/" + this.dateFin.getFullYear();
-        console.log("Décathlon " + this.nom + " " + this.lieu + ", du " + formatDateDebut + " au " + formatDateFin);
-    }
-
+    
     // Récupération des épreuves selon le jour où elle se déroule
     getEpreuvesByDay(day: Date): Epreuve[] {
         let epreuves: Epreuve[] = [];
@@ -66,6 +59,14 @@ export class Decathlon {
         }
         return epreuves;
     }
+    
+    // Affichage du décathlon (son nom, son lieu et ses dates)
+    afficher(): void {
+        let formatDateDebut : string = this.dateDebut.getDate() + "/" + this.dateDebut.getMonth() + "/" + this.dateDebut.getFullYear();
+        let formatDateFin : string = this.dateFin.getDate() + "/" + this.dateFin.getMonth() + "/" + this.dateFin.getFullYear();
+        console.log("Décathlon " + this.nom + " " + this.lieu + ", du " + formatDateDebut + " au " + formatDateFin);
+    }
+
 
     // Affichage du classement général des athlètes selon leurs points
     afficherClassementGlobal(): void {
